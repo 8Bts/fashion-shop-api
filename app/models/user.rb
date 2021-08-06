@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :favourites, class_name: 'Item', foreign_key: 'user_id'
   
   validates :name, presence: true, length: { minimum: 3 }
-  validates :admin_level, allow_nil: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :admin_level, allow_nil: true, numericality: { only_integer: true, greater_or_equal_than: 0 }
   
   private
 
