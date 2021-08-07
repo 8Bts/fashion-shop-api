@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
-  # initialize test data
   let!(:users) { create_list(:user, 10) }
   let(:user_id) { users.first.id }
 
-  # Test suite for GET /users
   describe 'GET /users' do
     before { get '/users' }
 
@@ -63,7 +61,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/users', params: { title: 'Fo' } }
+      before { post '/users', params: { name: 'Fo' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
