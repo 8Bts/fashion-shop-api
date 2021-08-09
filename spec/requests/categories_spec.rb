@@ -45,15 +45,13 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe 'POST /categories' do
-    let(:valid_attributes) { { title: 'T-shirt', price: 200, image: 'https://foo.com' } }
+    let(:valid_attributes) { { name: 'Jackets' } }
 
     context 'when the request is valid' do
       before { post '/categories', params: valid_attributes }
 
       it 'creates a category' do
-        expect(json['title']).to eq('T-shirt')
-        expect(json['price']).to eq(200)
-        expect(json['image']).to eq('https://foo.com')
+        expect(json['name']).to eq('Jackets')
       end
 
       it 'returns status code 201' do
@@ -62,7 +60,7 @@ RSpec.describe "Categories", type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/categories', params: { title: 'F' } }
+      before { post '/categories', params: { name: 'F' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -71,7 +69,7 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe 'PUT /categories/:id' do
-    let(:valid_attributes) { { title: 'T-shirt', price: 300, image: 'https://foo.com' } }
+    let(:valid_attributes) { { name: 'Jackets' } }
 
     context 'when the record exists' do
       before { put "/categories/#{category_id}", params: valid_attributes }
