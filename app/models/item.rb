@@ -5,4 +5,11 @@ class Item < ApplicationRecord
   validates :title, presence: true, length: { in: 2..64 }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :image, presence: true, format: { with: URI.regexp }
+
+  def as_json(options = {})
+    super(include: { categories: {
+      except: [:created_at, :updated_at] 
+      }})
+  end
+
 end
