@@ -6,6 +6,12 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3 }
   validates :admin_level, allow_nil: true, numericality: { only_integer: true, greater_or_equal_than: 0 }
   
+  def as_json(options = {})
+    super(include: { favourites: {
+      except: [:created_at, :updated_at] 
+      }}, except: [:created_at, :updated_at])
+  end
+
   private
 
   def default_values
