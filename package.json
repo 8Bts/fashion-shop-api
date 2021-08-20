@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "redux-promise-middleware": "^6.1.2"
-  }
-}
