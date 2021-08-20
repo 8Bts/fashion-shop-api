@@ -30,10 +30,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name)
+    params.permit(:name, :admin_level)
   end
 
   def set_user
     @user = User.find(params[:id])
   end
+
 end
