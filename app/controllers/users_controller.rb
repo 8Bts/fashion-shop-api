@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  def find
+    @user = User.find_by(name: params[:name])
+    if @user
+      json_response(@user)
+    else
+      json_response({ message: 'User not found'}, :not_found)
+    end  
+  end
+
   private
 
   def user_params
