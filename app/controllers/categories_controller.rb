@@ -13,13 +13,21 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.create!(categories_params)
-    json_response(@category, :created)
+    @category = Item.new(categories_params)
+    if @category.save
+      json_response(@category, :created)
+    else
+      json_response({ message: @category.errors.full_messages }, 422)
+    end
   end
 
   def update
-    @category.update(categories_params)
-    head :no_content
+    @category.name = params[:name]
+    if @category.save
+      head :no_content
+    else
+      json_response({ message: @category.errors.full_messages }, 422)
+    end
   end
 
   def destroy

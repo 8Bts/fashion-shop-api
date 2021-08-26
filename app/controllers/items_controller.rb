@@ -13,13 +13,23 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create!(items_params)
-    json_response(@item, :created)
+    @item = Item.new(items_params)
+    if @item.save
+      json_response(@item, :created)
+    else
+      json_response({ message: @item.errors.full_messages }, 422)
+    end
   end
 
   def update
-    @item.update(items_params)
-    head :no_content
+    @item.title = params[:title]
+    @item.price = params[:price]
+    item.image = params[:image]
+    if @item.save
+      head :no_content
+    else
+      json_response({ message: @item.errors.full_messages }, 422)
+    end
   end
 
   def destroy

@@ -13,13 +13,21 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create!(user_params)
-    json_response(@user, :created)
+    @user = User.new(user_params)
+    if @user.save
+      json_response(@user, :created)
+    else
+      json_response({ message: @user.errors.full_messages }, 422)
+    end
   end
 
   def update
-    @user.update(user_params)
-    head :no_content
+    @user.name = params[:name]
+    if @user.save
+      head :no_content
+    else
+      json_response({ message: @user.errors.full_messages }, 422)
+    end
   end
 
   def destroy
