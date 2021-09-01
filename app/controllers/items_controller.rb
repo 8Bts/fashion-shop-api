@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(items_params)
+    @item.categories << Category.find_by(name: params[:category])
     if @item.save
       json_response(@item, :created)
     else
