@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Item.new(categories_params)
+    @category = Category.new(categories_params)
     if @category.save
       json_response(@category, :created)
     else
