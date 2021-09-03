@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include Response
   include ExceptionHandler
 
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :add_favourite, :destroy]
 
   def index
     json_response(User.all)
@@ -27,6 +27,13 @@ class UsersController < ApplicationController
       head :no_content
     else
       json_response({ message: @user.errors.full_messages }, 422)
+    end
+  end
+
+  def add_favourite
+    item = Item.find(params[:item_id])
+    if item
+      @user.favourites << item
     end
   end
 
