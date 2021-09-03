@@ -37,6 +37,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_favourite
+    item = Item.find(params[:item_id])
+    if item
+      @user.favourites.delete(item)
+    end
+  end
+
   def destroy
     @user.destroy
     head :no_content
