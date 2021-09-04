@@ -25,8 +25,13 @@ class ItemsController < ApplicationController
   def update
     @item.title = params[:title]
     @item.price = params[:price]
-    @item.image = params[:image]
-    @item.img_delete_token = params[:img_delete_token]
+
+    if @item.img_public_id != params[:img_public_id]
+      Cloudinary::Api.delete_resources([params[:img_public_id]])
+      @item.img_public_id = params[:img_public_id]
+      @item.image = params[:image]
+    end
+    
 
     unless @item.categories.include?(params[:category])
       @item.categories.delete(@item.categories.first)

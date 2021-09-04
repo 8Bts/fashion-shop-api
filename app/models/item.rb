@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   validates :title, presence: true, uniqueness: true, length: { in: 2..64 }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :image, presence: true, uniqueness: true, format: { with: URI.regexp }
-  validates :img_delete_token, presence: true
+  validates :img_public_id, presence: true
 
   def as_json(options = {})
     super(include: { categories: {

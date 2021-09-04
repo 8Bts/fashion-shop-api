@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.string :title
       t.integer :price
       t.string :image
-      t.string :img_delete_token
+      t.string :img_public_id
 
       t.timestamps
     end
