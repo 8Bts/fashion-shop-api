@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
     @item.price = params[:price]
 
     if @item.img_public_id != params[:img_public_id]
-      Cloudinary::Api.delete_resources([params[:img_public_id]])
+      Cloudinary::Api.delete_resources([@item.img_public_id])
       @item.img_public_id = params[:img_public_id]
       @item.image = params[:image]
     end
