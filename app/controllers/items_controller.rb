@@ -53,7 +53,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
-    params.permit(:title, :price, :image, :img_delete_token)
+    params.permit(:title, :price, :image, :img_public_id)
   end
 
   def set_item
