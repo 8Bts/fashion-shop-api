@@ -25,7 +25,14 @@ class ItemsController < ApplicationController
   def update
     @item.title = params[:title]
     @item.price = params[:price]
-    item.image = params[:image]
+    @item.image = params[:image]
+    @item.img_delete_token = params[:img_delete_token]
+
+    unless @item.categories.include?(params[:category])
+      @item.categories.delete(@item.categories.first)
+      @item.categories << Category.find_by(params[:category])
+    end
+    
     if @item.save
       head :no_content
     else
