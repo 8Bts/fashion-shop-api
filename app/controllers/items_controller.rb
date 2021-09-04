@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
 
     unless @item.categories.include?(params[:category])
       @item.categories.delete(@item.categories.first)
-      @item.categories << Category.find_by(params[:category])
+      @item.categories << Category.find_by(name: params[:category])
     end
     
     if @item.save
