@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    Cloudinary::Api.delete_resources([@item.img_public_id])
     @item.destroy
     head :no_content
   end
