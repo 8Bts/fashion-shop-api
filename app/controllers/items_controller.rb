@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   include Response
   include ExceptionHandler
 
-  before_action :set_item, only: [:show, :update, :destroy]
+  before_action :set_item, only: %i[show update destroy]
 
   def index
     json_response(Item.all)
@@ -31,13 +31,12 @@ class ItemsController < ApplicationController
       @item.img_public_id = params[:img_public_id]
       @item.image = params[:image]
     end
-    
 
     unless @item.categories.include?(params[:category])
       @item.categories.delete(@item.categories.first)
       @item.categories << Category.find_by(name: params[:category])
     end
-    
+
     if @item.save
       head :no_content
     else

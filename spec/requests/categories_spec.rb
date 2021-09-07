@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Categories", type: :request do
+RSpec.describe 'Categories', type: :request do
   let!(:categories) { create_list(:category, 10) }
   let(:category_id) { categories.first.id }
 
@@ -20,7 +20,6 @@ RSpec.describe "Categories", type: :request do
   describe 'GET /categories/:id' do
     before { get "/categories/#{category_id}" }
     context 'when the record exists' do
-      
       it 'returns the category' do
         expect(json).not_to be_empty
         expect(json['id']).to eq(category_id)

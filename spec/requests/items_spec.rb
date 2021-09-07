@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Items", type: :request do
+RSpec.describe 'Items', type: :request do
   let!(:items) { create_list(:item, 10) }
   let(:item_id) { items.first.id }
 
@@ -20,7 +20,6 @@ RSpec.describe "Items", type: :request do
   describe 'GET /items/:id' do
     before { get "/items/#{item_id}" }
     context 'when the record exists' do
-      
       it 'returns the item' do
         expect(json).not_to be_empty
         expect(json['id']).to eq(item_id)

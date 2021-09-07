@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   include Response
   include ExceptionHandler
 
-  before_action :set_category, only: [:show, :update, :destroy]
+  before_action :set_category, only: %i[show update destroy]
 
   def index
     json_response(Category.all)

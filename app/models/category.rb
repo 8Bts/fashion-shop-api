@@ -3,8 +3,7 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2 }
 
-  def as_json(options = {})
-    super(include: :items, except: [:created_at, :updated_at])
+  def as_json(_options = {})
+    super(include: :items, except: %i[created_at updated_at])
   end
-
 end

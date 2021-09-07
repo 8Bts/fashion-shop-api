@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include Response
   include ExceptionHandler
 
-  before_action :set_user, only: [:show, :update, :add_favourite, :remove_favourite, :destroy]
+  before_action :set_user, only: %i[show update add_favourite remove_favourite destroy]
 
   def index
     json_response(User.all)
@@ -32,16 +32,12 @@ class UsersController < ApplicationController
 
   def add_favourite
     item = Item.find(params[:item_id])
-    if item
-      @user.favourites << item
-    end
+    @user.favourites << item if item
   end
 
   def remove_favourite
     item = Item.find(params[:item_id])
-    if item
-      @user.favourites.delete(item)
-    end
+    @user.favourites.delete(item) if item
   end
 
   def destroy
@@ -54,8 +50,8 @@ class UsersController < ApplicationController
     if @user
       json_response(@user)
     else
-      json_response({ message: 'User not found'}, :not_found)
-    end  
+      json_response({ message: 'User not found' }, :not_found)
+    end
   end
 
   private
@@ -67,5 +63,4 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
 end
