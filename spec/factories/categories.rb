@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    name { Faker::Color.color_name }
+    name { Faker::Internet.password(max_length: 10) }
   end
 end

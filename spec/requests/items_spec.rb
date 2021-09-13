@@ -44,10 +44,15 @@ RSpec.describe 'Items', type: :request do
   end
 
   describe 'POST /items' do
-    let(:valid_attributes) { { title: 'T-shirt', price: 200, image: 'https://foo.com' } }
+    let(:valid_attributes) do
+      { title: 'T-shirt', price: 200, image: 'https://foo.com', img_public_id: 'asdasc12', category: 'T-Shirts' }
+    end
 
     context 'when the request is valid' do
-      before { post '/items', params: valid_attributes }
+      before do
+        Category.create(name: 'T-Shirts')
+        post '/items', params: valid_attributes
+      end
 
       it 'creates a item' do
         expect(json['title']).to eq('T-shirt')
@@ -61,7 +66,10 @@ RSpec.describe 'Items', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/items', params: { title: 'F' } }
+      before do
+        Category.create(name: 'T-Shirts')
+        post '/items', params: { title: 'F', category: 'T-Shirts' }
+      end
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -70,10 +78,15 @@ RSpec.describe 'Items', type: :request do
   end
 
   describe 'PUT /items/:id' do
-    let(:valid_attributes) { { title: 'T-shirt', price: 300, image: 'https://foo.com' } }
+    let(:valid_attributes) do
+      { title: 'T-shirt', price: 300, image: 'https://foo.com', img_public_id: 'asdas', category: 'T-Shirts' }
+    end
 
     context 'when the record exists' do
-      before { put "/items/#{item_id}", params: valid_attributes }
+      before do
+        Item.find(item_id).categories << Category.create(name: 'T-Shirts')
+        put "/items/#{item_id}", params: valid_attributes
+      end
 
       it 'updates the record' do
         expect(response.body).to be_empty
